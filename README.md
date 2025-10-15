@@ -1,34 +1,42 @@
-# 🧠 CodePath CYB102 - Week 2 Project 2: Let's wget This Bread
+# 🧠 Linux Auditd File Monitoring — "Let's wget This Bread"
 
-This repository documents **Project 2** from CodePath’s CYB102 course, where we use the **Linux Audit Daemon (auditd)** to monitor filesystem changes in a protected directory and identify which attack scripts modify which files.
-
----
-
-## 🚀 Objective
-The goal of this project is to:
-- Set up custom **auditd rules** to monitor file changes in `/protected_files`
-- Run **three attack scripts** (`attack-a`, `attack-b`, and `attack-c`)
-- Use `ausearch` to filter logs and identify which files were altered by which attack
+> A forensic-style mini project that demonstrates how to track unauthorized file modifications in Linux using the `auditd` daemon.
 
 ---
 
-## 🧩 Tasks Summary
+## 📸 Project Overview
 
-| Step | Task | Command / Notes |
-|------|------|-----------------|
-| 1 | Download starter repo | `wget https://github.com/codepath/project2/archive/main.zip` |
-| 2 | Unzip contents | `unzip main.zip && cd project2-main` |
-| 3 | Make attacks executable | `chmod u+x attack-a attack-b attack-c` |
-| 4 | Configure auditd rules | Watch `/protected_files` for write activity |
-| 5 | Run attacks | `./attack-a`, `./attack-b`, `./attack-c` |
-| 6 | Analyze logs | `ausearch -k <filter_key>` |
-| 7 | Identify modified files | Note file paths and corresponding attack scripts |
+This project monitors a protected directory (`/protected_files`) using **Linux Auditd**, detects file changes made by custom attack scripts, and maps which attack modified which file.  
+It’s a practical example of **host-based intrusion detection** and **file integrity monitoring**.
 
 ---
 
-## ⚙️ Example Audit Rules (audit.rules)
-```bash
--w /protected_files/file1.txt -p wa -k file1_watch
--w /protected_files/file2.txt -p wa -k file2_watch
-...
--w /protected_files/file10.txt -p wa -k file10_watch
+## ⚙️ Features
+✅ Custom audit rules for `/protected_files`  
+✅ Attack simulations (`attack-a`, `attack-b`, `attack-c`)  
+✅ Log filtering with `ausearch`  
+✅ Real findings summary (file ↔ attack mappings)  
+✅ Reflection and analysis  
+
+---
+
+## 🧰 Tools & Commands Used
+| Tool | Purpose |
+|------|----------|
+| `auditd` | Logs file access and write operations |
+| `auditctl` | Manages audit rules |
+| `ausearch` | Searches and filters audit logs |
+| `chmod`, `wget`, `unzip` | File permissions and setup |
+
+---
+
+## 🧩 Process Overview
+
+```mermaid
+flowchart TD
+    A[Setup Auditd] --> B[Add Rules for /protected_files]
+    B --> C[Run Attack Scripts]
+    C --> D[Logs Captured by Auditd]
+    D --> E[Filter with ausearch]
+    E --> F[Identify Modified Files]
+    F --> G[Summarize Findings]
