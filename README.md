@@ -6,23 +6,24 @@
 
 ## 📸 Project Overview
 
-This project monitors a protected directory (`/protected_files`) using **Linux Auditd**, detects file changes made by custom attack scripts, and maps which attack modified which file.  
+This project monitors a protected directory (`/protected_files`) using **Linux `auditd`**, detects file changes made by custom attack scripts, and maps which attack modified which file.  
 It’s a practical example of **host-based intrusion detection** and **file integrity monitoring**.
 
 ---
 
 ## ⚙️ Features
-✅ Custom audit rules for `/protected_files`  
-✅ Attack simulations (`attack-a`, `attack-b`, `attack-c`)  
-✅ Log filtering with `ausearch`  
-✅ Real findings summary (file ↔ attack mappings)  
-✅ Reflection and analysis  
+- ✅ Custom audit rules for `/protected_files`  
+- ✅ Attack simulations (`attack-a`, `attack-b`, `attack-c`)  
+- ✅ Log filtering with `ausearch`  
+- ✅ Real findings summary (file ↔ attack mappings)  
+- ✅ Reflection and analysis  
 
 ---
 
 ## 🧰 Tools & Commands Used
+
 | Tool | Purpose |
-|------|----------|
+|------|---------|
 | `auditd` | Logs file access and write operations |
 | `auditctl` | Manages audit rules |
 | `ausearch` | Searches and filters audit logs |
