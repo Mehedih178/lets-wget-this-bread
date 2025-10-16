@@ -83,6 +83,6 @@ sudo auditctl -w /protected_files -p wa -k protected_watch
 
 ```
 
-📎 Summary
+## 📎 Summary
 This project successfully demonstrates how Linux auditd can be configured to detect and log unauthorized file modifications.
 Through carefully applied rules, simulated attacks, and log filtering, each event was captured and verified, proving auditd’s value for forensic analysis and system hardening.
