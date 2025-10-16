@@ -77,10 +77,11 @@ Below are the audit rules used to detect and log file modifications in `/protect
 
 ### Temporary Rules (runtime only)
 ```bash
+
 # Monitor writes and attribute changes in /protected_files
 sudo auditctl -w /protected_files -p wa -k protected_watch
 
-
+```
 
 📎 Summary
 This project successfully demonstrates how Linux auditd can be configured to detect and log unauthorized file modifications.
