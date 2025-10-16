@@ -80,59 +80,7 @@ Below are the audit rules used to detect and log file modifications in `/protect
 # Monitor writes and attribute changes in /protected_files
 sudo auditctl -w /protected_files -p wa -k protected_watch
 
-# Monitor write and exec operations in directory (detailed)
-sudo auditctl -a always,exit -F dir=/protected_files -F perm=wa -F key=protected_watch
-sudo auditctl -a always,exit -F dir=/protected_files -F perm=x -F key=protected_exec
-Persistent Rules (survive reboot)
-Create:
 
-bash
-Copy code
-sudo nano /etc/audit/rules.d/protected.rules
-Add:
-
-text
-Copy code
-# /etc/audit/rules.d/protected.rules
-# Watch the protected directory for writes and attribute changes
--w /protected_files -p wa -k protected_watch
-
-# Log renames, deletes, and executions
--a always,exit -F dir=/protected_files -F perm=wa -F key=protected_watch
--a always,exit -F dir=/protected_files -F perm=x -F key=protected_exec
--a always,exit -F dir=/protected_files -F perm=wa -F auid>=1000 -F auid!=4294967295 -k protected_user_actions
-
-# Syscall-based rules for detailed tracing (optional)
--a exit,always -F arch=b64 -S open,creat,openat,unlink,unlinkat,rename,renameat -F dir=/protected_files -F key=protected_syscalls
--a exit,always -F arch=b32 -S open,creat,openat,unlink,unlinkat,rename,renameat -F dir=/protected_files -F key=protected_syscalls32
-Then load the rules:
-
-bash
-Copy code
-sudo augenrules --load
-sudo auditctl -l
-🧠 Example Commands Used
-bash
-Copy code
-# View active rules
-sudo auditctl -l
-
-# Show audit events tagged with key
-sudo ausearch -k protected_watch
-
-# Filter by date or time range
-sudo ausearch -k protected_watch --start today
-
-# Generate readable report
-sudo ausearch -k protected_watch --format raw | aureport -f
-
-# Verify auditd is running
-sudo systemctl status auditd
-📊 Example Findings Table
-Attack Script	File Modified	Syscall Triggered	Detection Result
-attack-a.sh	/protected_files/secret.txt	open, write	✅ Logged
-attack-b.sh	/protected_files/report.log	rename, unlink	✅ Logged
-attack-c.sh	/protected_files/data.txt	creat, chmod	✅ Logged
 
 📎 Summary
 This project successfully demonstrates how Linux auditd can be configured to detect and log unauthorized file modifications.
